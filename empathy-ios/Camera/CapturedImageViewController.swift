@@ -13,6 +13,9 @@ class CapturedImageViewController: UIViewController {
     
     @IBOutlet weak var capturedImageView: UIImageView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    var userInfo:UserInfo?
+
     var capturedImage: UIImage? {
         didSet {
             if let capturedImage = capturedImage {
@@ -59,6 +62,7 @@ class CapturedImageViewController: UIViewController {
         
         if let writeFeedViewController = storyboard.instantiateViewController(withIdentifier: "WriteFeedViewController") as? WriteFeedViewController {
             writeFeedViewController.image = capturedImage
+            writeFeedViewController.userInfo = self.userInfo
             present(writeFeedViewController, animated: true, completion: nil)
         }
     }

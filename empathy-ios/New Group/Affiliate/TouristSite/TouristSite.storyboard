@@ -276,8 +276,8 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="45g-XZ-Dyz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45g-XZ-Dyz">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="164"/>
                                                                 <color key="backgroundColor" red="1" green="0.34509803921568627" blue="0.34509803921568627" alpha="0.1052814640410959" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="164" id="ogL-iK-eEc"/>

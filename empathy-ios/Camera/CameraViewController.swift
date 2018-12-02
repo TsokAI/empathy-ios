@@ -54,6 +54,8 @@ class CameraViewController: UIViewController {
     var capturedImage: UIImage?
     var capturedRect: CGRect?
     
+    var userInfo:UserInfo?
+    
     var latestPhotoAssetsFetched: PHFetchResult<PHAsset>? = nil
     lazy var imagePicker = UIImagePickerController()
     
@@ -348,7 +350,7 @@ class CameraViewController: UIViewController {
         
         let storyboard: UIStoryboard = self.storyboard!
         guard let capturedImageViewController: CapturedImageViewController = storyboard.instantiateViewController(withIdentifier: "CapturedImageViewController") as? CapturedImageViewController else { return }
-        
+        capturedImageViewController.userInfo = self.userInfo
         self.present(capturedImageViewController, animated: false, completion: nil)
         
         if let capturedImage = self.libraryImageView.image {

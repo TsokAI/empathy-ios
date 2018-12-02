@@ -48,7 +48,7 @@ class WriteFeedViewController: UIViewController {
         leadingVerticalLineConstraint.constant = view.frame.width/3
         trailingVerticalLineConstraint.constant = view.frame.width/3
         
-        if let locationEnum = locationEnum {
+        if let locationEnum = location {
             locationLabel.text = locationEnum
         }
         
@@ -195,7 +195,11 @@ extension WriteFeedViewController {
                                 debugPrint(response)
                                 print(response.response)
                             }
-                            self.dismiss(animated: true, completion: nil)
+//                            self.dismiss(animated: true, completion: nil)
+                            if let viewController = UIStoryboard.init(name: "MainFeed", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainFeedViewController") as? MainFeedViewController {
+                                viewController.userInfo = self.userInfo
+                                self.present(viewController, animated: true, completion: nil)
+                            }
                         case .failure(let encodingError):
                             print("error:\(encodingError)")
                         }

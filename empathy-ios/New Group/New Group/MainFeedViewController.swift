@@ -79,7 +79,11 @@ class MainFeedViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "toMyFeed") || (segue.identifier == "toMyFeed2"), let destination = segue.destination as? MyFeedViewController {
+//        if (segue.identifier == "toMyFeed") || (segue.identifier == "toMyFeed2"), let destination = segue.destination as? MyFeedViewController {
+        if segue.identifier == "toMyFeed", let destination = segue.destination as? MyFeedViewController {
+            destination.userInfo = self.userInfo
+        }
+        else if segue.identifier == "toCamera", let destination = segue.destination as? CameraViewController {
             destination.userInfo = self.userInfo
         }
         

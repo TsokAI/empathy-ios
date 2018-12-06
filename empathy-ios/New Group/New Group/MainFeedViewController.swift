@@ -56,6 +56,14 @@ class MainFeedViewController: UIViewController {
         }
     }
     
+    @IBAction func tapMyFeed(_ sender: UIButton) {
+        if let viewController = UIStoryboard.init(name: "MyFeed", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyFeedViewController") as? MyFeedViewController {
+            
+            viewController.userInfo = userInfo
+            
+            present(viewController, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func tapToursiteButton(_ sender: Any) {
         random = Int.random(in: 0 ... 10)

@@ -292,6 +292,9 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkJ-l2-ElJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="248.66666666666666"/>
+                                                <connections>
+                                                    <action selector="tapMyFeed:" destination="Mno-GZ-aOy" eventType="touchUpInside" id="dGL-cS-g7z"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="charcoalgrey"/>

@@ -32,8 +32,6 @@
 		03F88CF821A5129900084E8E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F88CF721A5129900084E8E /* Constants.swift */; };
 		03F88CFB21A5215C00084E8E /* WriteFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F88CFA21A5215C00084E8E /* WriteFeed.storyboard */; };
 		33DA86A549580FBFD094A31A /* Pods_empathy_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D4E3B912BC44511566E01C /* Pods_empathy_iosUITests.framework */; };
-		3B5AECA921B6E25C008CB9A9 /* MyFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECA821B6E25C008CB9A9 /* MyFeedPresenter.swift */; };
-		3B5AECAC21B6EB3A008CB9A9 /* EmpathyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAB21B6EB3A008CB9A9 /* EmpathyService.swift */; };
 		55090CB021B2DEE600147D20 /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55090C8E21B2DEE600147D20 /* TopLib_Op.a */; };
 		55090CB121B2DEE600147D20 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA421B2DEE600147D20 /* TrackingDotHalo.png */; };
 		55090CB221B2DEE600147D20 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA521B2DEE600147D20 /* TrackingDot@2x.png */; };
@@ -134,8 +132,6 @@
 		18D9DBF9EF2F98F5A9E4280D /* Pods-empathy-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empathy-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-empathy-ios/Pods-empathy-ios.release.xcconfig"; sourceTree = "<group>"; };
 		1CE5B306E7759201DA997162 /* Pods_empathy_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FA77C5EE3BA98FD233DA8B5 /* Pods-empathy-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empathy-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empathy-iosTests/Pods-empathy-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B5AECA821B6E25C008CB9A9 /* MyFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedPresenter.swift; sourceTree = "<group>"; };
-		3B5AECAB21B6EB3A008CB9A9 /* EmpathyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpathyService.swift; sourceTree = "<group>"; };
 		4A99C37BD44035FBF70FDAAA /* Pods_empathy_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55090C5C21B2B15400147D20 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		55090C8E21B2DEE600147D20 /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
@@ -333,22 +329,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3B5AECA721B6E0F4008CB9A9 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				C204747321A7FBE3005742C0 /* MyFeed */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		3B5AECAA21B6EB19008CB9A9 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				3B5AECAB21B6EB3A008CB9A9 /* EmpathyService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		55090C8F21B2DEE600147D20 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,12 +431,11 @@
 		55BC061921809A7300FE43CA /* empathy-ios */ = {
 			isa = PBXGroup;
 			children = (
-				3B5AECAA21B6EB19008CB9A9 /* Service */,
-				3B5AECA721B6E0F4008CB9A9 /* UI */,
 				C204F83121AF106700E8ABEB /* FeedDetail */,
 				C204F82921AEEE3300E8ABEB /* Request */,
 				C204F82521AECCA900E8ABEB /* Common */,
 				C204749821A9B644005742C0 /* Model */,
+				C204747321A7FBE3005742C0 /* MyFeed */,
 				55BC061A21809A7300FE43CA /* AppDelegate.swift */,
 				5577097E21AA144800363CE3 /* Camera */,
 				03F88CF921A520C900084E8E /* Feed */,
@@ -537,7 +516,6 @@
 				C204747421A7FC13005742C0 /* MyFeed.storyboard */,
 				C204747821A96EAE005742C0 /* MyFeedTableViewCell.swift */,
 				C204747621A7FC4A005742C0 /* MyFeedViewController.swift */,
-				3B5AECA821B6E25C008CB9A9 /* MyFeedPresenter.swift */,
 			);
 			path = MyFeed;
 			sourceTree = "<group>";
@@ -846,7 +824,6 @@
 				03A9EF5521AAADBD00FD7F2D /* MainFeedViewController.swift in Sources */,
 				035A8A5A21AC660B00CA3B8C /* AffiliateViewController.swift in Sources */,
 				C280DC9321AF1D2700A54D82 /* FeedDetail.swift in Sources */,
-				3B5AECAC21B6EB3A008CB9A9 /* EmpathyService.swift in Sources */,
 				55A331792192A0A0005DFA01 /* FilterController.swift in Sources */,
 				C204747921A96EAE005742C0 /* MyFeedTableViewCell.swift in Sources */,
 				036BC0A721A5D58100400924 /* WriteFeedViewController.swift in Sources */,
@@ -873,7 +850,6 @@
 				0357512F21B20B4D0048323A /* UserInfo.swift in Sources */,
 				0357513321B233A10048323A /* OtherPeoplJourney.swift in Sources */,
 				55DFA37E219C4996001B23AC /* CVPixelBuffer+Helpers.swift in Sources */,
-				3B5AECA921B6E25C008CB9A9 /* MyFeedPresenter.swift in Sources */,
 				55A3317421900944005DFA01 /* CapturedImageViewController.swift in Sources */,
 				C204747721A7FC4A005742C0 /* MyFeedViewController.swift in Sources */,
 				55DFA378219C4996001B23AC /* Math.swift in Sources */,

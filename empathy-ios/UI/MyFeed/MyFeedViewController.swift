@@ -16,12 +16,13 @@ class MyFeedViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     
     private let cellIdentifier = "my_feed_cell"
+    private let presenter = MyFeedPresenter()
     private var myFeeds: [MyFeed] = []
     
     var imagePicker = UIImagePickerController()
     
-    var userInfo:UserInfo?
-    var myJourneyLists:[MyJourney]?
+    var user: UserInfo?
+    var myJourneyLists: [MyJourney]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +33,11 @@ class MyFeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
+//        presenter.attachView(view: self)
         
-        if let info = userInfo {
-            fetchMyFeeds(ownerId: info.userId)
-//            initializeNotificationObserver()
+        if let user = user {
+            fetchMyFeeds(ownerId: user.userId)
+//            presenter.fetchMyFeeds(userId: user.userId)
         }
         
 //        //dummy
@@ -87,6 +89,14 @@ class MyFeedViewController: UIViewController {
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
+}
+
+extension MyFeedViewController: MyFeedView {
+    func showDeleteFeedAlert(indexPath: IndexPath) {
+        
+    }
+    
+    
 }
 
 extension MyFeedViewController: UITableViewDataSource {
@@ -153,7 +163,7 @@ extension MyFeedViewController:UIImagePickerControllerDelegate, UINavigationCont
         if let viewController = UIStoryboard.init(name: "WriteFeed", bundle: nil).instantiateViewController(withIdentifier: "WriteFeedViewController") as? WriteFeedViewController {
             if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 viewController.image = img
-                viewController.userInfo = userInfo
+                viewController.userInfo = user
             }
             self.dismiss(animated: true) {
                 self.present(viewController, animated: true, completion: nil)

@@ -81,7 +81,7 @@ class MainFeedViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if (segue.identifier == "toMyFeed") || (segue.identifier == "toMyFeed2"), let destination = segue.destination as? MyFeedViewController {
         if segue.identifier == "toMyFeed", let destination = segue.destination as? MyFeedViewController {
-            destination.userInfo = self.userInfo
+            destination.user = self.userInfo
         }
         else if segue.identifier == "toCamera", let destination = segue.destination as? CameraViewController {
             destination.userInfo = self.userInfo

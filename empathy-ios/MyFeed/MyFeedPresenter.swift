@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MyFeedView {
-    func showMyFeeds(myJourneys: [MyJourney])
+    func showMyFeeds(myFeeds: [MyFeed])
 }
 
 class MyFeedPresenter {
@@ -31,10 +31,11 @@ class MyFeedPresenter {
     }
     
     func fetchMyFeeds(userId: Int) {
-        self.service.fetchMyFeeds(userId: userId) { [weak self] myJourneys in
+        self.service.fetchMyFeeds(userId: userId) { [weak self] myFeeds in
             
-            self?.view?.showMyFeeds(myJourneys: myJourneys)
+            self?.view?.showMyFeeds(myFeeds: myFeeds)
         }
     }
+    
     
 }

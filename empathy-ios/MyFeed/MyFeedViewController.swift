@@ -19,43 +19,49 @@ class MyFeedViewController: UIViewController {
     private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService())
     
     private var myFeeds: [MyFeed] = []
-    private var imagePicker = UIImagePickerController()
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        
+        return picker
+    } ()
     
     var userInfo:UserInfo?
-    var myJourneys:[MyJourney] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imagePicker.delegate = self
+        self.imagePicker.delegate = self
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .none
         
-        presenter.attachView(view: self)
+        self.presenter.attachView(view: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let info = userInfo {
-            presenter.fetchMyFeeds(userId: info.userId)
+            self.presenter.fetchMyFeeds(userId: info.userId)
         }
     }
     
-    private func showDeleteMyFeedAlert(indexPath: IndexPath) {
+    private func showMyFeedDeleteAlert(indexPath: IndexPath) {
         let alertController = UIAlertController(title: "여정 삭제하기", message: "작성 하신 여정을 삭제하시겠어요?", preferredStyle: UIAlertController.Style.alert)
-        
+
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "삭제", style: .default) { (action: UIAlertAction) in
             self.myFeeds.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
 //            self.tableView.reloadData()
         }
-        
+
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
         
-        present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func tapBackButton(_ sender: Any) {
@@ -63,25 +69,20 @@ class MyFeedViewController: UIViewController {
     }
     
     @IBAction func tapWriteFeed(_ sender: UIButton) {
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        
-        present(imagePicker, animated: true, completion: nil)
+        self.present(self.imagePicker, animated: true, completion: nil)
     }
 }
 
 extension MyFeedViewController: MyFeedView {
-    func showMyFeeds(myJourneys: [MyJourney]) {
-        self.myJourneys.removeAll()
-        self.myJourneys = myJourneys
+    func showMyFeeds(myFeeds: [MyFeed]) {
+        self.myFeeds.removeAll()
+        self.myFeeds = myFeeds
         
         self.tableView.reloadData()
     }
-    
 }
 
 extension MyFeedViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myFeeds.count
     }
@@ -104,12 +105,10 @@ extension MyFeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
-            showDeleteMyFeedAlert(indexPath: indexPath)
+            showMyFeedDeleteAlert(indexPath: indexPath)
         }
     }
-    
 }
 
 extension MyFeedViewController: UITableViewDelegate {
@@ -129,17 +128,23 @@ extension MyFeedViewController: UITableViewDelegate {
     }
 }
 
-extension MyFeedViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension MyFeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let viewController = UIStoryboard.init(name: "WriteFeed", bundle: nil).instantiateViewController(withIdentifier: "WriteFeedViewController") as? WriteFeedViewController {
             if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 viewController.image = img
                 viewController.userInfo = userInfo
             }
+            
             self.dismiss(animated: true) {
                 self.present(viewController, animated: true, completion: nil)
             }
         }
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
+
 

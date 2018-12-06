@@ -12,7 +12,7 @@
 		0357513321B233A10048323A /* OtherPeoplJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357513221B233A10048323A /* OtherPeoplJourney.swift */; };
 		0357513521B234160048323A /* MainFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357513421B234160048323A /* MainFeed.swift */; };
 		0357513721B234E70048323A /* LocationEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357513621B234E70048323A /* LocationEnum.swift */; };
-		0357513921B2D14A0048323A /* MyJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357513821B2D14A0048323A /* MyJourney.swift */; };
+		0357513921B2D14A0048323A /* MyFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357513821B2D14A0048323A /* MyFeed.swift */; };
 		0358621B21ABC3E000CF5727 /* Location.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0358621A21ABC3E000CF5727 /* Location.storyboard */; };
 		035A8A4F21AC4E2500CA3B8C /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8A4E21AC4E2500CA3B8C /* LocationViewController.swift */; };
 		035A8A5421AC512700CA3B8C /* TouristSite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 035A8A5321AC512700CA3B8C /* TouristSite.storyboard */; };
@@ -76,8 +76,6 @@
 		C204747521A7FC13005742C0 /* MyFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C204747421A7FC13005742C0 /* MyFeed.storyboard */; };
 		C204747721A7FC4A005742C0 /* MyFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204747621A7FC4A005742C0 /* MyFeedViewController.swift */; };
 		C204747921A96EAE005742C0 /* MyFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204747821A96EAE005742C0 /* MyFeedTableViewCell.swift */; };
-		C204749A21A9B64E005742C0 /* MyFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204749921A9B64E005742C0 /* MyFeed.swift */; };
-		C204F82B21AEEE4800E8ABEB /* FetchMyFeeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204F82A21AEEE4800E8ABEB /* FetchMyFeeds.swift */; };
 		C204F82D21AEEECF00E8ABEB /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204F82C21AEEECF00E8ABEB /* Commons.swift */; };
 		C204F82F21AEEFD200E8ABEB /* NetworkErrorNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204F82E21AEEFD200E8ABEB /* NetworkErrorNotification.swift */; };
 		C204F83321AF107F00E8ABEB /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C204F83221AF107F00E8ABEB /* FeedDetailViewController.swift */; };
@@ -111,7 +109,7 @@
 		0357513221B233A10048323A /* OtherPeoplJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPeoplJourney.swift; sourceTree = "<group>"; };
 		0357513421B234160048323A /* MainFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeed.swift; sourceTree = "<group>"; };
 		0357513621B234E70048323A /* LocationEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEnum.swift; sourceTree = "<group>"; };
-		0357513821B2D14A0048323A /* MyJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourney.swift; sourceTree = "<group>"; };
+		0357513821B2D14A0048323A /* MyFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeed.swift; sourceTree = "<group>"; };
 		0358621A21ABC3E000CF5727 /* Location.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Location.storyboard; sourceTree = "<group>"; };
 		035A8A4E21AC4E2500CA3B8C /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		035A8A5321AC512700CA3B8C /* TouristSite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TouristSite.storyboard; sourceTree = "<group>"; };
@@ -205,8 +203,6 @@
 		C204747421A7FC13005742C0 /* MyFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyFeed.storyboard; sourceTree = "<group>"; };
 		C204747621A7FC4A005742C0 /* MyFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedViewController.swift; sourceTree = "<group>"; };
 		C204747821A96EAE005742C0 /* MyFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedTableViewCell.swift; sourceTree = "<group>"; };
-		C204749921A9B64E005742C0 /* MyFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeed.swift; sourceTree = "<group>"; };
-		C204F82A21AEEE4800E8ABEB /* FetchMyFeeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyFeeds.swift; sourceTree = "<group>"; };
 		C204F82C21AEEECF00E8ABEB /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		C204F82E21AEEFD200E8ABEB /* NetworkErrorNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorNotification.swift; sourceTree = "<group>"; };
 		C204F83221AF107F00E8ABEB /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
@@ -435,11 +431,11 @@
 		55BC061921809A7300FE43CA /* empathy-ios */ = {
 			isa = PBXGroup;
 			children = (
+				C204F82521AECCA900E8ABEB /* Common */,
+				C204F82921AEEE3300E8ABEB /* Request */,
+				C204749821A9B644005742C0 /* Model */,
 				C297D24B21B94E9200141265 /* Network */,
 				C204F83121AF106700E8ABEB /* FeedDetail */,
-				C204F82921AEEE3300E8ABEB /* Request */,
-				C204F82521AECCA900E8ABEB /* Common */,
-				C204749821A9B644005742C0 /* Model */,
 				C204747321A7FBE3005742C0 /* MyFeed */,
 				55BC061A21809A7300FE43CA /* AppDelegate.swift */,
 				5577097E21AA144800363CE3 /* Camera */,
@@ -529,13 +525,12 @@
 		C204749821A9B644005742C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C204749921A9B64E005742C0 /* MyFeed.swift */,
 				C280DC9221AF1D2700A54D82 /* FeedDetail.swift */,
 				0357512E21B20B4D0048323A /* UserInfo.swift */,
 				0357513221B233A10048323A /* OtherPeoplJourney.swift */,
 				0357513421B234160048323A /* MainFeed.swift */,
 				0357513621B234E70048323A /* LocationEnum.swift */,
-				0357513821B2D14A0048323A /* MyJourney.swift */,
+				0357513821B2D14A0048323A /* MyFeed.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -551,7 +546,6 @@
 		C204F82921AEEE3300E8ABEB /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				C204F82A21AEEE4800E8ABEB /* FetchMyFeeds.swift */,
 				C280DC9421AF1D5700A54D82 /* FetchDetailFeed.swift */,
 				C204F82E21AEEFD200E8ABEB /* NetworkErrorNotification.swift */,
 			);
@@ -846,7 +840,6 @@
 				55DFA37F219C4996001B23AC /* NonMaxSuppression.swift in Sources */,
 				55DFA369219C47D3001B23AC /* SSDPostprocessor.swift in Sources */,
 				035A8A5E21AC664D00CA3B8C /* TouristSiteDetailViewController.swift in Sources */,
-				C204F82B21AEEE4800E8ABEB /* FetchMyFeeds.swift in Sources */,
 				0357513121B231250048323A /* MainFeedCollectionViewCell.swift in Sources */,
 				55BC061D21809A7300FE43CA /* CameraViewController.swift in Sources */,
 				03F2F10F21952DEA00A98241 /* RoundedButton.swift in Sources */,
@@ -856,12 +849,11 @@
 				55DFA365219C4675001B23AC /* ssd_mobilenet_feature_extractor.mlmodel in Sources */,
 				C280DC9521AF1D5700A54D82 /* FetchDetailFeed.swift in Sources */,
 				55DFA37A219C4996001B23AC /* Array.swift in Sources */,
-				0357513921B2D14A0048323A /* MyJourney.swift in Sources */,
+				0357513921B2D14A0048323A /* MyFeed.swift in Sources */,
 				55A331772191A84D005DFA01 /* FilterCollectionView.swift in Sources */,
 				03F2F10D219529EE00A98241 /* LoginViewController.swift in Sources */,
 				03F88CF521A477FD00084E8E /* InstagramLoginViewController.swift in Sources */,
 				55DFA36B219C47D3001B23AC /* Anchors.swift in Sources */,
-				C204749A21A9B64E005742C0 /* MyFeed.swift in Sources */,
 				0357512F21B20B4D0048323A /* UserInfo.swift in Sources */,
 				0357513321B233A10048323A /* OtherPeoplJourney.swift in Sources */,
 				55DFA37E219C4996001B23AC /* CVPixelBuffer+Helpers.swift in Sources */,

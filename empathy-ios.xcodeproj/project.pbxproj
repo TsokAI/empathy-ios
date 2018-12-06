@@ -32,6 +32,8 @@
 		03F88CF821A5129900084E8E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F88CF721A5129900084E8E /* Constants.swift */; };
 		03F88CFB21A5215C00084E8E /* WriteFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F88CFA21A5215C00084E8E /* WriteFeed.storyboard */; };
 		33DA86A549580FBFD094A31A /* Pods_empathy_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D4E3B912BC44511566E01C /* Pods_empathy_iosUITests.framework */; };
+		3B5AECAE21B99599008CB9A9 /* FeedDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */; };
+		3B5AECB021B996A3008CB9A9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */; };
 		55090CB021B2DEE600147D20 /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55090C8E21B2DEE600147D20 /* TopLib_Op.a */; };
 		55090CB121B2DEE600147D20 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA421B2DEE600147D20 /* TrackingDotHalo.png */; };
 		55090CB221B2DEE600147D20 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA521B2DEE600147D20 /* TrackingDot@2x.png */; };
@@ -132,6 +134,8 @@
 		18D9DBF9EF2F98F5A9E4280D /* Pods-empathy-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empathy-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-empathy-ios/Pods-empathy-ios.release.xcconfig"; sourceTree = "<group>"; };
 		1CE5B306E7759201DA997162 /* Pods_empathy_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FA77C5EE3BA98FD233DA8B5 /* Pods-empathy-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empathy-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empathy-iosTests/Pods-empathy-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailPresenter.swift; sourceTree = "<group>"; };
+		3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
 		4A99C37BD44035FBF70FDAAA /* Pods_empathy_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55090C5C21B2B15400147D20 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		55090C8E21B2DEE600147D20 /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 				03F88CF921A520C900084E8E /* Feed */,
 				03F2F1092194AECE00A98241 /* Login */,
 				55090CBD21B2F0EF00147D20 /* LocationManager.swift */,
+				3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */,
 				55BC062121809A7400FE43CA /* Assets.xcassets */,
 				55BC062321809A7400FE43CA /* LaunchScreen.storyboard */,
 				55BC062621809A7400FE43CA /* Info.plist */,
@@ -557,6 +562,7 @@
 			children = (
 				C204F83221AF107F00E8ABEB /* FeedDetailViewController.swift */,
 				C204F83421AF109000E8ABEB /* FeedDetail.storyboard */,
+				3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */,
 			);
 			path = FeedDetail;
 			sourceTree = "<group>";
@@ -826,6 +832,7 @@
 				55DFA37C219C4996001B23AC /* Predictions.swift in Sources */,
 				55DFA37B219C4996001B23AC /* BoundingBox.swift in Sources */,
 				C204F83321AF107F00E8ABEB /* FeedDetailViewController.swift in Sources */,
+				3B5AECB021B996A3008CB9A9 /* BasePresenter.swift in Sources */,
 				55DFA37D219C4996001B23AC /* MultiArray.swift in Sources */,
 				55DFA36A219C47D3001B23AC /* Utility.swift in Sources */,
 				55DFA379219C4996001B23AC /* UIImage+CVPixelBuffer.swift in Sources */,
@@ -851,6 +858,7 @@
 				55DFA37A219C4996001B23AC /* Array.swift in Sources */,
 				0357513921B2D14A0048323A /* MyFeed.swift in Sources */,
 				55A331772191A84D005DFA01 /* FilterCollectionView.swift in Sources */,
+				3B5AECAE21B99599008CB9A9 /* FeedDetailPresenter.swift in Sources */,
 				03F2F10D219529EE00A98241 /* LoginViewController.swift in Sources */,
 				03F88CF521A477FD00084E8E /* InstagramLoginViewController.swift in Sources */,
 				55DFA36B219C47D3001B23AC /* Anchors.swift in Sources */,

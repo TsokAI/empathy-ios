@@ -12,7 +12,7 @@ protocol MyFeedView {
     func showMyFeeds(myFeeds: [MyFeed])
 }
 
-class MyFeedPresenter {
+class MyFeedPresenter: BasePresenter {
 
     private let service: EmpathyService
     
@@ -22,14 +22,14 @@ class MyFeedPresenter {
         self.service = service
     }
     
-    func attachView(view: MyFeedView) {
-        self.view = view
+    func attachView<T>(view: T) {
+        self.view = view as? MyFeedView
     }
     
     func detachView() {
         self.view = nil
     }
-    
+
     func fetchMyFeeds(userId: Int) {
         self.service.fetchMyFeeds(userId: userId) { [weak self] myFeeds in
             

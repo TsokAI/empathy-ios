@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class FeedDetailViewController: UIViewController {
+class FeedDetailViewController: UIViewController, FeedDetailView {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var journeyImageView: UIImageView!
@@ -18,28 +18,28 @@ class FeedDetailViewController: UIViewController {
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    private let presenter = FeedDetailPresenter(service: EmpathyService(())
+    
     private var feedDetail: FeedDetail?
     
-    var journeyDetailId:Int?
+    var feedId: Int?
     var journeyDetail:[String:Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initializeView()
-//        initializeNotificationObserver()
-//        fetchFeedDetail(targetId: 1)
-        if let detailId = journeyDetailId {
-            requestDetailInfo(detailId)
+        
+        
+        if let feedId = feedId {
+            presenter.fechDetailFeed(feedId: feedId)
+//            requestDetailInfo(feedId)
         }
         
+        initializeView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-//        if let detailId = journeyDetailId {
-//            requestDetailInfo(detailId)
-//        }
     }
     
     @IBAction func tapBackAction(_ sender: UIButton) {
@@ -61,22 +61,9 @@ class FeedDetailViewController: UIViewController {
         }
     }
     
-//    @objc func didReceiveDetailFeedNotification(_ noti: Notification) {
-//        guard let feedDetail: FeedDetail = noti.userInfo?["feedDetail"] as? FeedDetail else {
-//            return
-//        }
-//
-//        self.feedDetail = feedDetail
-//    }
-    
     private func initializeView() {
         userImage.layer.cornerRadius = userImage.frame.size.width / 2
     }
-
-//    private func initializeNotificationObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveDetailFeedNotification(_:)), name: DidReceiveFeedDetailNotification, object: nil)
-//    }
-
 }
 
 // request

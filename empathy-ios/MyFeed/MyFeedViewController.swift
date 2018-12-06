@@ -16,12 +16,13 @@ class MyFeedViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     
     private let cellIdentifier = "my_feed_cell"
-    private var myFeeds: [MyFeed] = []
+    private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService())
     
-    var imagePicker = UIImagePickerController()
+    private var myFeeds: [MyFeed] = []
+    private var imagePicker = UIImagePickerController()
     
     var userInfo:UserInfo?
-    var myJourneyLists:[MyJourney]?
+    var myJourneys:[MyJourney] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,39 +33,14 @@ class MyFeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        
+        presenter.attachView(view: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         if let info = userInfo {
-            fetchMyFeeds(ownerId: info.userId)
-//            initializeNotificationObserver()
+            presenter.fetchMyFeeds(userId: info.userId)
         }
-        
-//        //dummy
-//        myFeeds.append(MyFeed(contents: "왕십리 시장 탐험을 다녀오다", creationTime: "11.03 2018", imageUrl: "", journeyId: 1, location: "서울", ownerProfileUrl: "", title: "왕십리 시장 텀험을 다녀오다"))
     }
-    @IBAction func tapBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-//    @objc func didReceiveMyFeedsNotification(_ noti: Notification) {
-//        guard let myFeeds: [MyFeed] = noti.userInfo?["myFeeds"] as? [MyFeed] else {
-//            return
-//        }
-//
-//        self.myFeeds = myFeeds
-//
-////        DispatchQueue.main.async {
-//            if myFeeds.count == 0 {
-//                self.emptyView.isHidden = false
-//            } else {
-//                self.emptyView.isHidden = true
-//                self.tableView.reloadData()
-//            }
-////        }
-//    }
-    
-//    private func initializeNotificationObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMyFeedsNotification(_:)), name: DidReceiveMyFeedsNotification, object: nil)
-//    }
     
     private func showDeleteMyFeedAlert(indexPath: IndexPath) {
         let alertController = UIAlertController(title: "여정 삭제하기", message: "작성 하신 여정을 삭제하시겠어요?", preferredStyle: UIAlertController.Style.alert)
@@ -82,11 +58,26 @@ class MyFeedViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func tapBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func tapWriteFeed(_ sender: UIButton) {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
+        
         present(imagePicker, animated: true, completion: nil)
     }
+}
+
+extension MyFeedViewController: MyFeedView {
+    func showMyFeeds(myJourneys: [MyJourney]) {
+        self.myJourneys.removeAll()
+        self.myJourneys = myJourneys
+        
+        self.tableView.reloadData()
+    }
+    
 }
 
 extension MyFeedViewController: UITableViewDataSource {
@@ -113,6 +104,7 @@ extension MyFeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             showDeleteMyFeedAlert(indexPath: indexPath)
         }
@@ -124,16 +116,6 @@ extension MyFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let remove = UITableViewRowAction(style: .default, title: "") { action, indexPath in
-//            print("delete button tapped")
-//        }
-//
-//        remove.backgroundColor = UIColor(patternImage: UIImage(named: "iconRemove")!)
-//
-//        return [remove]
-//    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -147,7 +129,6 @@ extension MyFeedViewController: UITableViewDelegate {
     }
 }
 
-// album
 extension MyFeedViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let viewController = UIStoryboard.init(name: "WriteFeed", bundle: nil).instantiateViewController(withIdentifier: "WriteFeedViewController") as? WriteFeedViewController {
@@ -162,48 +143,3 @@ extension MyFeedViewController:UIImagePickerControllerDelegate, UINavigationCont
     }
 }
 
-
-// request
-extension MyFeedViewController {
-    func fetchMyFeeds(ownerId: Int) {
-        let urlPath = Commons.baseUrl + "/journey/myjourney/\(ownerId)"
-//        Alamofire.request(urlPath).response
-        Alamofire.request(urlPath).responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            
-            if let json = response.result.value as? [MyJourney] {
-                print("JSON: \(json)") // serialized json response
-                // TODO : 초기화 -> cell에 뿌리는 부분!
-                
-            }
-            
-            if let data = response.data {
-                let decoder = JSONDecoder()
-                print("JSON: \(data)")
-                do {
-                } catch let e {
-                    print(e)
-                }
-            }
-            
-            if let info = self.myJourneyLists {
-                self.update(myJourneyList: info)
-            }
-            else {
-                self.update(myJourneyList: [])
-            }
-        }
-    }
-    func update(myJourneyList:[MyJourney]) {
-        if myJourneyList.count == 0 {
-            emptyView.isHidden = false
-        }
-        else {
-            emptyView.isHidden = true
-            tableView.reloadData()
-        }
-        
-    }
-}

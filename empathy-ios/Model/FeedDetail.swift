@@ -26,6 +26,22 @@ struct FeedDetail: Codable {
     let ownerProfileUrl: String
     let title: String
     
+    init(contents: String,
+         creationTime: String,
+         imageUrl: String,
+         journeyId: Int,
+         location: String,
+         ownerProfileUrl: String,
+         title: String) {
+        
+        self.contents = contents
+        self.creationTime = creationTime
+        self.imageUrl = imageUrl
+        self.journeyId = journeyId
+        self.location = location
+        self.ownerProfileUrl = ownerProfileUrl
+        self.title = title
+    }
     
     enum CodingKeys: String, CodingKey {
         case contents, creationTime, imageUrl, journeyId, location, ownerProfileUrl, title

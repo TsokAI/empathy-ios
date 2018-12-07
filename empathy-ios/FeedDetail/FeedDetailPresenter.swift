@@ -9,14 +9,14 @@
 import Foundation
 
 protocol FeedDetailView {
-    
+    func showFeed(feedDetail: FeedDetail)
 }
 
 class FeedDetailPresenter: BasePresenter {
     
-    private var view: FeedDetailView?
+    private let service: EmpathyService
     
-    let service: EmpathyService?
+    private var view: FeedDetailView?
     
     init(service: EmpathyService) {
         self.service = service
@@ -31,7 +31,9 @@ class FeedDetailPresenter: BasePresenter {
     }
     
     func fetchDetailFeed(feedId: Int) {
-        self.service?.fetchDetailFeed(feedId: feedId)
+        self.service.fetchDetailFeed(feedId: feedId) { [weak self] feedDetail in
+            self?.view?.showFeed(feedDetail: feedDetail)
+        }
     }
     
 }

@@ -32,10 +32,8 @@ class MyFeedPresenter: BasePresenter {
 
     func fetchMyFeeds(userId: Int) {
         self.service.fetchMyFeeds(userId: userId) { [weak self] myFeeds in
-            
             self?.view?.showMyFeeds(myFeeds: myFeeds)
         }
     }
-    
     
 }

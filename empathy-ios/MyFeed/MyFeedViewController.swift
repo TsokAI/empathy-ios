@@ -42,6 +42,11 @@ class MyFeedViewController: UIViewController {
         self.presenter.attachView(view: self)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.presenter.detachView()
+    }
+
+    
     override func viewWillAppear(_ animated: Bool) {
         if let info = userInfo {
             self.presenter.fetchMyFeeds(userId: info.userId)

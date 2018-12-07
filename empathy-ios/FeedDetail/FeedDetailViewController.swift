@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class FeedDetailViewController: UIViewController, FeedDetailView {
+class FeedDetailViewController: UIViewController {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var journeyImageView: UIImageView!
@@ -18,7 +18,7 @@ class FeedDetailViewController: UIViewController, FeedDetailView {
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
-    private let presenter = FeedDetailPresenter(service: EmpathyService(())
+    private let presenter = FeedDetailPresenter(service: EmpathyService())
     
     private var feedDetail: FeedDetail?
     
@@ -28,24 +28,22 @@ class FeedDetailViewController: UIViewController, FeedDetailView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.presenter.attachView(view: self)
         
         if let feedId = feedId {
-            presenter.fechDetailFeed(feedId: feedId)
-//            requestDetailInfo(feedId)
+            self.presenter.fetchDetailFeed(feedId: feedId)
         }
         
         initializeView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewDidDisappear(_ animated: Bool) {
+        self.presenter.detachView()
     }
     
     @IBAction func tapBackAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     func update(_ journeydetail:[String:Any]) {
         if let title = journeyDetail?["title"] as? String, let contents = journeyDetail?["contents"] as? String, let location = journeyDetail?["location"] as? String, let time = journeydetail["creationTime"] as? String {
@@ -64,6 +62,10 @@ class FeedDetailViewController: UIViewController, FeedDetailView {
     private func initializeView() {
         userImage.layer.cornerRadius = userImage.frame.size.width / 2
     }
+}
+
+extension FeedDetailViewController: FeedDetailView {
+    
 }
 
 // request

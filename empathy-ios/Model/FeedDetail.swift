@@ -26,6 +26,7 @@ struct FeedDetail: Codable {
     let ownerProfileUrl: String
     let title: String
     
+    
     enum CodingKeys: String, CodingKey {
         case contents, creationTime, imageUrl, journeyId, location, ownerProfileUrl, title
     }

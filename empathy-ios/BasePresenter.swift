@@ -9,6 +9,6 @@
 import Foundation
 
 protocol BasePresenter {
-    func attachView<T>(view: T?)
+    func attachView<T>(view: T)
     func detachView()
 }

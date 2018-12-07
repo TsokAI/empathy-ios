@@ -17,9 +17,46 @@ class EmpathyService {
         let url = baseUrl + "/journey/myjourney/\(userId)"
         
         Alamofire.request(url).responseJSON { response in
-            if let myJourneys = response.result.value as? [MyFeed] {
-                completion(myJourneys)
+            if let myFeeds = response.result.value as? [MyFeed] {
+                completion(myFeeds)
             }
         }
+    }
+    
+    func fetchDetailFeed(feedId: Int) {
+        let url = baseUrl + "/journey/\(feedId)"
+        
+        Alamofire.request(url).responseJSON { response in
+            if let feed = response.result.value {
+                let feed = feed as? [String: Any]
+                
+                let title = feed?["title"] as? String
+                let contents = feed?["contents"] as? String
+                let location = feed?["location"] as? String
+                let time = feed?["creationTime"] as? String
+                let imageUrl = feed?["imageUrl"] as? String
+                let journeyId = feed?["journeyId"] as? Int
+                let ownerProfileUrl = feed?["ownerProfileUrl"] as? String
+                
+                let feedDetail = FeedDetail()
+                
+            }
+        }
+        
+//        Alamofire.request(url).responseJSON { (response) in
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
+//
+//
+//            if let json = response.result.value {
+//                print("JSON: \(json)") // serialized json response
+//                self.journeyDetail = json as? [String : Any]
+//            }
+//
+//            if let info = self.journeyDetail {
+//                self.update(info)
+//            }
+//        }
     }
 }

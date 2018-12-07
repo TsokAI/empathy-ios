@@ -10,6 +10,7 @@ import Foundation
 
 protocol FeedDetailView {
     func showFeed(feedDetail: FeedDetail)
+    func showFailure(message: String)
 }
 
 class FeedDetailPresenter: BasePresenter {
@@ -31,8 +32,14 @@ class FeedDetailPresenter: BasePresenter {
     }
     
     func fetchDetailFeed(feedId: Int) {
-        self.service.fetchDetailFeed(feedId: feedId) { [weak self] feedDetail in
-            self?.view?.showFeed(feedDetail: feedDetail)
+        self.service.fetchDetailFeed(feedId: feedId) { [weak self] response in
+            
+            switch response {
+            case .success(let result):
+                self?.view?.showFeed(feedDetail: result)
+            case .failure(let message):
+                self?.view?.showFailure(message: message)
+            }   
         }
     }
     

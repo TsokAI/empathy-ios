@@ -103,7 +103,7 @@ extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataS
 //        print("🤪🤪\(mainFeedInfo?.otherPeopleList[indexPath.row])")
         if let info = mainFeedInfo?.otherPeopleList[indexPath.row], let viewController = UIStoryboard.init(name: "FeedDetail", bundle: Bundle.main).instantiateViewController(withIdentifier: "FeedDetailViewController") as? FeedDetailViewController {
 //            otherPeopleFeedId = info.journeyId
-            viewController.journeyDetailId = info.journeyId
+            viewController.feedId = info.journeyId
             self.present(viewController, animated: true, completion: nil)
         }
     }

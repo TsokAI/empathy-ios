@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Toaster
 
 class FeedDetailViewController: UIViewController {
     
@@ -50,6 +51,11 @@ class FeedDetailViewController: UIViewController {
 }
 
 extension FeedDetailViewController: FeedDetailView {
+    
+    func showFailure(message: String) {
+        Toast(text: message, delay: Delay.short, duration: Delay.long).show()
+    }
+    
     func showFeed(feedDetail: FeedDetail) {
         titleLabel.text = feedDetail.title
         contentsLabel.text = feedDetail.contents

@@ -13,6 +13,7 @@ let baseUrl = "http://ec2-13-209-245-253.ap-northeast-2.compute.amazonaws.com:80
 
 class EmpathyService {
     
+    
     func fetchMyFeeds(userId: Int, completion: @escaping ([MyFeed]) -> ()) {
         let url = baseUrl + "/journey/myjourney/\(userId)"
         
@@ -23,7 +24,7 @@ class EmpathyService {
         }
     }
     
-    func fetchDetailFeed(feedId: Int, completion: @escaping ((FeedDetail) -> ())) {
+    func fetchDetailFeed(feedId: Int, completion: @escaping ((RequestResult<FeedDetail>) -> ())) {
         let url = baseUrl + "/journey/\(feedId)"
         
         Alamofire.request(url).responseJSON { response in
@@ -40,7 +41,9 @@ class EmpathyService {
                 
                 let feedDetail = FeedDetail(contents: contents!, creationTime: creationTime!, imageUrl: imageUrl!, journeyId: journeyId!, location: location!, ownerProfileUrl: ownerProfileUrl!, title: title!)
                 
-                completion(feedDetail)
+                completion(RequestResult.success(feedDetail))
+            } else {
+                completion(RequestResult.failure(message: "서버에 문제가 생겼습니다. 다시 한번 시도해주세요."))
             }
         }
     }

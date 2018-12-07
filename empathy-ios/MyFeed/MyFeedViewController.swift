@@ -12,7 +12,7 @@ import UIKit
 
 class MyFeedViewController: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     
     private let cellIdentifier = "my_feed_cell"
@@ -101,10 +101,9 @@ extension MyFeedViewController: UITableViewDataSource {
     
         cell.roundView.layer.cornerRadius = cell.roundView.frame.size.width / 2
         cell.roundView.clipsToBounds = true
-        cell.dateMonth.text = "11.03"
-        cell.dateYear.text = "2017"
+        cell.date.text = myFeed.creationTime
         cell.title.text = myFeed.title
-        cell.feedImage.kf.setImage(with: URL(string: ""))
+        cell.feedImage.kf.setImage(with: URL(string: myFeed.imageUrl))
         
         return cell
     }

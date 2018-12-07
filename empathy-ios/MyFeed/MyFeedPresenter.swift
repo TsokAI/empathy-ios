@@ -9,6 +9,7 @@
 import Foundation
 
 protocol MyFeedView {
+    func showEmptyView()
     func showMyFeeds(myFeeds: [MyFeed])
 }
 
@@ -35,7 +36,11 @@ class MyFeedPresenter: BasePresenter {
             
             switch response {
             case .success(let result):
-                self?.view?.showMyFeeds(myFeeds: result)
+                if result.count == 0 {
+                    self?.view?.showEmptyView()
+                } else {
+                    self?.view?.showMyFeeds(myFeeds: result)
+                }
             case .failure(let message):
                 print("error \(message)")
             }

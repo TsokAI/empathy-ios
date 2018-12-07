@@ -79,6 +79,10 @@ class MyFeedViewController: UIViewController {
 }
 
 extension MyFeedViewController: MyFeedView {
+    func showEmptyView() {
+        self.emptyView.isHidden = false
+    }
+    
     func showMyFeeds(myFeeds: [MyFeed]) {
         self.myFeeds.removeAll()
         self.myFeeds = myFeeds

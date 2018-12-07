@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Toaster
 
 class FeedDetailViewController: UIViewController {
     
@@ -18,86 +19,50 @@ class FeedDetailViewController: UIViewController {
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
-    private var feedDetail: FeedDetail?
-    
-    var journeyDetailId:Int?
-    var journeyDetail:[String:Any]?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        initializeView()
-//        initializeNotificationObserver()
-//        fetchFeedDetail(targetId: 1)
-        if let detailId = journeyDetailId {
-            requestDetailInfo(detailId)
-        }
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-//        if let detailId = journeyDetailId {
-//            requestDetailInfo(detailId)
-//        }
-    }
-    
     @IBAction func tapBackAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    private let presenter = FeedDetailPresenter(service: EmpathyService.empathyInstance)
     
-    func update(_ journeydetail:[String:Any]) {
-        if let title = journeyDetail?["title"] as? String, let contents = journeyDetail?["contents"] as? String, let location = journeyDetail?["location"] as? String, let time = journeydetail["creationTime"] as? String {
-            titleLabel.text = title
-            contentsLabel.text = contents
-            locationLabel.text = location
-            dateLabel.text = time
+    private var feedDetail: FeedDetail?
+    
+    var feedId: Int?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.presenter.attachView(view: self)
+        
+        if let feedId = self.feedId {
+            self.presenter.fetchDetailFeed(feedId: feedId)
         }
         
-        if let imageString =  journeyDetail?["ownerProfileUrl"] as? String ,let imageURL = URL(string:imageString), let ownerImageString = journeyDetail?["imageUrl"] as? String, let journeyURL = URL(string: ownerImageString) {
-            userImage.kf.setImage(with: imageURL)
-            journeyImageView.kf.setImage(with: journeyURL)
-        }
+        initializeView()
     }
     
-//    @objc func didReceiveDetailFeedNotification(_ noti: Notification) {
-//        guard let feedDetail: FeedDetail = noti.userInfo?["feedDetail"] as? FeedDetail else {
-//            return
-//        }
-//
-//        self.feedDetail = feedDetail
-//    }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.presenter.detachView()
+    }
+
     private func initializeView() {
         userImage.layer.cornerRadius = userImage.frame.size.width / 2
     }
-
-//    private func initializeNotificationObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveDetailFeedNotification(_:)), name: DidReceiveFeedDetailNotification, object: nil)
-//    }
-
 }
 
-// request
-extension FeedDetailViewController {
-    func requestDetailInfo(_ journeyId:Int){
-        let urlPath = Commons.baseUrl + "/journey/\(journeyId)"
-        
-        Alamofire.request(urlPath).responseJSON { (response) in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            
-            
-            if let json = response.result.value {
-                print("JSON: \(json)") // serialized json response
-                self.journeyDetail = json as? [String : Any]
-            }
-            
-            if let info = self.journeyDetail {
-                self.update(info)
-            }
-        }
+extension FeedDetailViewController: FeedDetailView {
+    
+    func showFailure(message: String) {
+        Toast(text: message, delay: Delay.short, duration: Delay.long).show()
+    }
+    
+    func showFeed(feedDetail: FeedDetail) {
+        titleLabel.text = feedDetail.title
+        contentsLabel.text = feedDetail.contents
+        locationLabel.text = feedDetail.location
+        dateLabel.text = feedDetail.creationTime
+    
+        userImage.kf.setImage(with: URL(string: feedDetail.ownerProfileUrl))
+        journeyImageView.kf.setImage(with: URL(string: feedDetail.imageUrl))
     }
 }

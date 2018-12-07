@@ -11,8 +11,7 @@ import UIKit
 class MyFeedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var roundView: UIView!
-    @IBOutlet weak var dateMonth: UILabel!
-    @IBOutlet weak var dateYear: UILabel!
+    @IBOutlet weak var date: UILabel!
     @IBOutlet weak var feedImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     

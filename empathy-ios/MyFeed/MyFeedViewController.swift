@@ -12,11 +12,11 @@ import UIKit
 
 class MyFeedViewController: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     
     private let cellIdentifier = "my_feed_cell"
-    private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService())
+    private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService.empathyInstance)
     
     private var myFeeds: [MyFeed] = []
     private lazy var imagePicker: UIImagePickerController = {
@@ -41,6 +41,11 @@ class MyFeedViewController: UIViewController {
         
         self.presenter.attachView(view: self)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.presenter.detachView()
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         if let info = userInfo {
@@ -74,6 +79,10 @@ class MyFeedViewController: UIViewController {
 }
 
 extension MyFeedViewController: MyFeedView {
+    func showEmptyView() {
+        self.emptyView.isHidden = false
+    }
+    
     func showMyFeeds(myFeeds: [MyFeed]) {
         self.myFeeds.removeAll()
         self.myFeeds = myFeeds
@@ -96,10 +105,9 @@ extension MyFeedViewController: UITableViewDataSource {
     
         cell.roundView.layer.cornerRadius = cell.roundView.frame.size.width / 2
         cell.roundView.clipsToBounds = true
-        cell.dateMonth.text = "11.03"
-        cell.dateYear.text = "2017"
+        cell.date.text = myFeed.creationTime
         cell.title.text = myFeed.title
-        cell.feedImage.kf.setImage(with: URL(string: ""))
+        cell.feedImage.kf.setImage(with: URL(string: myFeed.imageUrl))
         
         return cell
     }

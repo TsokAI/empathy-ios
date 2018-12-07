@@ -9,10 +9,11 @@
 import Foundation
 
 protocol MyFeedView {
+    func showEmptyView()
     func showMyFeeds(myFeeds: [MyFeed])
 }
 
-class MyFeedPresenter {
+class MyFeedPresenter: BasePresenter {
 
     private let service: EmpathyService
     
@@ -22,20 +23,29 @@ class MyFeedPresenter {
         self.service = service
     }
     
-    func attachView(view: MyFeedView) {
-        self.view = view
+    func attachView<T>(view: T) {
+        self.view = view as? MyFeedView
     }
     
     func detachView() {
         self.view = nil
     }
-    
+
     func fetchMyFeeds(userId: Int) {
-        self.service.fetchMyFeeds(userId: userId) { [weak self] myFeeds in
+        self.service.fetchMyFeeds(userId: userId) { [weak self] response in
             
-            self?.view?.showMyFeeds(myFeeds: myFeeds)
+            switch response {
+            case .success(let result):
+                if result.count == 0 {
+                    self?.view?.showEmptyView()
+                } else {
+                    self?.view?.showMyFeeds(myFeeds: result)
+                }
+            case .failure(let message):
+                print("error \(message)")
+            }
+            
         }
     }
-    
     
 }

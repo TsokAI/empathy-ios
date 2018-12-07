@@ -16,7 +16,7 @@ class MyFeedViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     
     private let cellIdentifier = "my_feed_cell"
-    private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService())
+    private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService.empathyInstance)
     
     private var myFeeds: [MyFeed] = []
     private lazy var imagePicker: UIImagePickerController = {

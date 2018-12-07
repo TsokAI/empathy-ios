@@ -31,8 +31,15 @@ class MyFeedPresenter: BasePresenter {
     }
 
     func fetchMyFeeds(userId: Int) {
-        self.service.fetchMyFeeds(userId: userId) { [weak self] myFeeds in
-            self?.view?.showMyFeeds(myFeeds: myFeeds)
+        self.service.fetchMyFeeds(userId: userId) { [weak self] response in
+            
+            switch response {
+            case .success(let result):
+                self?.view?.showMyFeeds(myFeeds: result)
+            case .failure(let message):
+                print("error \(message)")
+            }
+            
         }
     }
     

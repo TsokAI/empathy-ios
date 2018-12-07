@@ -23,7 +23,7 @@ class FeedDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private let presenter = FeedDetailPresenter(service: EmpathyService())
+    private let presenter = FeedDetailPresenter(service: EmpathyService.empathyInstance)
     
     private var feedDetail: FeedDetail?
     

@@ -34,6 +34,7 @@
 		33DA86A549580FBFD094A31A /* Pods_empathy_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D4E3B912BC44511566E01C /* Pods_empathy_iosUITests.framework */; };
 		3B5AECAE21B99599008CB9A9 /* FeedDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */; };
 		3B5AECB021B996A3008CB9A9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */; };
+		3B5AECB221BA99B3008CB9A9 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */; };
 		55090CB021B2DEE600147D20 /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55090C8E21B2DEE600147D20 /* TopLib_Op.a */; };
 		55090CB121B2DEE600147D20 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA421B2DEE600147D20 /* TrackingDotHalo.png */; };
 		55090CB221B2DEE600147D20 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA521B2DEE600147D20 /* TrackingDot@2x.png */; };
@@ -136,6 +137,7 @@
 		2FA77C5EE3BA98FD233DA8B5 /* Pods-empathy-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empathy-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empathy-iosTests/Pods-empathy-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailPresenter.swift; sourceTree = "<group>"; };
 		3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
+		3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		4A99C37BD44035FBF70FDAAA /* Pods_empathy_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55090C5C21B2B15400147D20 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		55090C8E21B2DEE600147D20 /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				C297D24C21B94EA500141265 /* EmpathyService.swift */,
+				3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				55A331792192A0A0005DFA01 /* FilterController.swift in Sources */,
 				C204747921A96EAE005742C0 /* MyFeedTableViewCell.swift in Sources */,
 				036BC0A721A5D58100400924 /* WriteFeedViewController.swift in Sources */,
+				3B5AECB221BA99B3008CB9A9 /* ApiResponse.swift in Sources */,
 				035A8A4F21AC4E2500CA3B8C /* LocationViewController.swift in Sources */,
 				55DFA37F219C4996001B23AC /* NonMaxSuppression.swift in Sources */,
 				55DFA369219C47D3001B23AC /* SSDPostprocessor.swift in Sources */,

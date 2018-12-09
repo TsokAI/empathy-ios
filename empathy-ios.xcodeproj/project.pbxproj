@@ -35,6 +35,7 @@
 		3B5AECAE21B99599008CB9A9 /* FeedDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */; };
 		3B5AECB021B996A3008CB9A9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */; };
 		3B5AECB221BA99B3008CB9A9 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */; };
+		3B5AECB521BD4AEF008CB9A9 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECB421BD4AEF008CB9A9 /* LoginPresenter.swift */; };
 		55090CB021B2DEE600147D20 /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55090C8E21B2DEE600147D20 /* TopLib_Op.a */; };
 		55090CB121B2DEE600147D20 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA421B2DEE600147D20 /* TrackingDotHalo.png */; };
 		55090CB221B2DEE600147D20 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA521B2DEE600147D20 /* TrackingDot@2x.png */; };
@@ -138,6 +139,7 @@
 		3B5AECAD21B99599008CB9A9 /* FeedDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailPresenter.swift; sourceTree = "<group>"; };
 		3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
 		3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		3B5AECB421BD4AEF008CB9A9 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		4A99C37BD44035FBF70FDAAA /* Pods_empathy_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55090C5C21B2B15400147D20 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		55090C8E21B2DEE600147D20 /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
@@ -306,6 +308,8 @@
 			children = (
 				03F2F10A2194AEE200A98241 /* Login.storyboard */,
 				03F2F10C219529EE00A98241 /* LoginViewController.swift */,
+				3B5AECB421BD4AEF008CB9A9 /* LoginPresenter.swift */,
+				55090CBD21B2F0EF00147D20 /* LocationManager.swift */,
 				03F2F10E21952DEA00A98241 /* RoundedButton.swift */,
 				03F88CF421A477FD00084E8E /* InstagramLoginViewController.swift */,
 				03F88CF721A5129900084E8E /* Constants.swift */,
@@ -438,16 +442,15 @@
 			isa = PBXGroup;
 			children = (
 				C204F82521AECCA900E8ABEB /* Common */,
+				C297D24B21B94E9200141265 /* Network */,
 				C204F82921AEEE3300E8ABEB /* Request */,
 				C204749821A9B644005742C0 /* Model */,
-				C297D24B21B94E9200141265 /* Network */,
 				C204F83121AF106700E8ABEB /* FeedDetail */,
 				C204747321A7FBE3005742C0 /* MyFeed */,
-				55BC061A21809A7300FE43CA /* AppDelegate.swift */,
 				5577097E21AA144800363CE3 /* Camera */,
 				03F88CF921A520C900084E8E /* Feed */,
 				03F2F1092194AECE00A98241 /* Login */,
-				55090CBD21B2F0EF00147D20 /* LocationManager.swift */,
+				55BC061A21809A7300FE43CA /* AppDelegate.swift */,
 				3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */,
 				55BC062121809A7400FE43CA /* Assets.xcassets */,
 				55BC062321809A7400FE43CA /* LaunchScreen.storyboard */,
@@ -848,6 +851,7 @@
 				036BC0A721A5D58100400924 /* WriteFeedViewController.swift in Sources */,
 				3B5AECB221BA99B3008CB9A9 /* ApiResponse.swift in Sources */,
 				035A8A4F21AC4E2500CA3B8C /* LocationViewController.swift in Sources */,
+				3B5AECB521BD4AEF008CB9A9 /* LoginPresenter.swift in Sources */,
 				55DFA37F219C4996001B23AC /* NonMaxSuppression.swift in Sources */,
 				55DFA369219C47D3001B23AC /* SSDPostprocessor.swift in Sources */,
 				035A8A5E21AC664D00CA3B8C /* TouristSiteDetailViewController.swift in Sources */,

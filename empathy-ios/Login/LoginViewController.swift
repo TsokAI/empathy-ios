@@ -10,58 +10,34 @@ import UIKit
 import FacebookLogin
 import FacebookCore
 import Alamofire
+import Toaster
 
 class LoginViewController: UIViewController {
 
-//    @IBOutlet weak var instagramLoginButton: RoundedButton!
     @IBOutlet weak var facebookLoginButton: RoundedButton!
     
-    var userInformation:UserInfo?
+    private let presenter = LoginPresenter(service: EmpathyService.empathyInstance)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        facebookLoginButton.addTarget(self, action: #selector(facebookLoginButtonClicked), for: .touchUpInside)
+        self.presenter.attachView(view: self)
         
-        
+        self.facebookLoginButton.addTarget(self, action: #selector(facebookLoginButtonClicked), for: .touchUpInside)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    // Once the button is clicked, show the login dialog
-    //
     @objc func facebookLoginButtonClicked() {
         let loginManager = LoginManager()
         loginManager.logIn(readPermissions: [.publicProfile, .email], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
                 print(error)
+                Toast(text: "정보를 받아올 수 없습니다.").show()
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print("Logged in!")
+            case .success( _, _, let accessToken):
                 print(accessToken)
-                
-                self.getUserInformation { userInfo, error in
-                    if let error = error {(print(error.localizedDescription))}
-                    
-                    if let userInfo = userInfo, let id = userInfo["id"], let name = (userInfo["name"] as? String), let email=userInfo["email"], let pictureURL = (userInfo["picture"] as? [String:Any])?["data"] as? [String:Any], let appUserId = accessToken.userId as? String {
-                        print("\(id)////\(name)////\(email)")
-                        print("URL:::\(pictureURL["url"])")
-                        if let url = (pictureURL["url"] as? String) {
-                            self.postLoginFacebook(name, url, appUserId)
-                        }
-                    }
-                }
+                self.presenter.fetchUserInformation(accessToken: accessToken)
             }
         }
     }
@@ -69,6 +45,7 @@ class LoginViewController: UIViewController {
     func getUserInformation( completion: @escaping (_ : [String:Any]?, _ : Error?) -> Void) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields" :"id,name, email, picture"])
         request.start { response, result in
+            
             switch result {
             case .failed(let error):
                 completion(nil, error)
@@ -77,31 +54,24 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    deinit {
+        self.presenter.detachView()
+    }
 }
 
-// MARK - request
-extension LoginViewController {
-    func postLoginFacebook(_ name:String, _ pictureURL:String, _ appUserId:String) {
-        let urlPath = "\(Commons.baseUrl)/user/"
-//        let
-        Alamofire.request(urlPath,
-                          method: .post, parameters: ["name":name, "loginApi":"facebook" , "profileUrl":pictureURL, "appUserId": appUserId],
-            encoding: JSONEncoding.default, headers: nil).responseJSON { response in
-//                print("Request: \(String(describing: response.request))")   // original url request
-//                print("Response: \(String(describing: response.response))") // http url response
-//                print("Result: \(response.result)")                         // response serialization result
-                
-                if let json = (response.result.value as? Int){
-//                    print(json)
-                    self.userInformation = UserInfo.init(userId: json, name: name, pictureURL: pictureURL)
-                    UserInfoManager.shared.userInfo = self.userInformation
-                }
-                
-                if let viewController = UIStoryboard.init(name: "MainFeed", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainFeedViewController") as? MainFeedViewController {
-                    viewController.userInfo = self.userInformation
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                    self.present(viewController, animated: true, completion: nil)
-                }
+extension LoginViewController: LoginView {
+    func navigateToMainFeedView(user: UserInfo) {
+        if let viewController = UIStoryboard.init(
+            name: "MainFeed",
+            bundle: Bundle.main
+            ).instantiateViewController(withIdentifier: "MainFeedViewController") as? MainFeedViewController {
+            
+            viewController.userInfo = user
+            
+            self.navigationController?.pushViewController(viewController, animated: true)
+            self.present(viewController, animated: true, completion: nil)
         }
     }
 }
+

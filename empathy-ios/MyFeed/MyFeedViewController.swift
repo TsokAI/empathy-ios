@@ -15,6 +15,14 @@ class MyFeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     
+    @IBAction func tapBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func tapWriteFeed(_ sender: UIButton) {
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+    
     private let cellIdentifier = "my_feed_cell"
     private let presenter: MyFeedPresenter = MyFeedPresenter(service: EmpathyService.empathyInstance)
     
@@ -42,11 +50,6 @@ class MyFeedViewController: UIViewController {
         self.presenter.attachView(view: self)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.presenter.detachView()
-    }
-
-    
     override func viewWillAppear(_ animated: Bool) {
         if let info = userInfo {
             self.presenter.fetchMyFeeds(userId: info.userId)
@@ -69,12 +72,8 @@ class MyFeedViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func tapBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func tapWriteFeed(_ sender: UIButton) {
-        self.present(self.imagePicker, animated: true, completion: nil)
+    deinit {
+        self.presenter.detachView()
     }
 }
 

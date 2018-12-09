@@ -48,6 +48,10 @@ class FeedDetailViewController: UIViewController {
     private func initializeView() {
         userImage.layer.cornerRadius = userImage.frame.size.width / 2
     }
+    
+    deinit {
+        self.presenter.detachView()
+    }
 }
 
 extension FeedDetailViewController: FeedDetailView {

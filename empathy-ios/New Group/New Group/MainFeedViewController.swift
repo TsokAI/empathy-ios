@@ -21,38 +21,47 @@ class MainFeedViewController: UIViewController {
     @IBOutlet weak var myJourneyLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    private var mainFeedInfo: MainFeed?
+    private var locationEnum:LocationEnum?
+    
+    private let presenter = MainFeedPresenter(service: EmpathyService.empathyInstance)
+    
     var userInfo:UserInfo?
-    var mainFeedInfo:MainFeed?
-    
-    var random:Int?
-    var locationEnum:LocationEnum?
-    
-    var otherPeopleFeedId:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        smileLabel.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 2)
-
+        presenter.attachView(view: self)
+        
+        initializeView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         LocationManager.shared.requestLocation { (locationCoordinate2D) in
-            print(locationCoordinate2D?.longitude, locationCoordinate2D?.longitude)
-            
             if let locationCoordinate2D = locationCoordinate2D {
                 self.locationEnum = LocationManager.shared.getNearestLocationEnum(location: locationCoordinate2D)
-                
-                print(self.locationEnum)
-//                self.locationLabel.text = self.locationEnum!.rawValue
                 self.locationLabel.text = "Seoul"
             }
+            
             if let id = self.userInfo?.userId {
+//                self.presenter.fetchMainFeed(location: "Seourl", userId: String(id))
                 self.requestMainFeedInfo("Seoul", String(id))
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMyFeed",
+            let destination = segue.destination as? MyFeedViewController {
+            
+            destination.userInfo = self.userInfo
+        }
+        else if segue.identifier == "toCamera",
+            let destination = segue.destination as? CameraViewController {
+            
+            destination.userInfo = self.userInfo
         }
     }
     
@@ -61,49 +70,52 @@ class MainFeedViewController: UIViewController {
             
             viewController.userInfo = userInfo
             
-            present(viewController, animated: true, completion: nil)
+            self.present(viewController, animated: true, completion: nil)
         }
     }
     
     @IBAction func tapToursiteButton(_ sender: Any) {
-        random = Int.random(in: 0 ... 10)
-        if let randomNumber = random {
-            if randomNumber%2 == 0 {
-                if let viewController = UIStoryboard.init(name: "TouristSite", bundle: Bundle.main).instantiateViewController(withIdentifier: "TouristSiteViewController") as? TouristSiteViewController {
-//                    self.navigationController?.pushViewController(viewController, animated: true)
-                    present(viewController, animated: true, completion: nil)
-                }
-                
-            }
-            else {
-                if let viewController = UIStoryboard.init(name: "Affiliate", bundle: Bundle.main).instantiateViewController(withIdentifier: "AffiliateViewController") as? AffiliateViewController {
-//                    self.navigationController?.pushViewController(viewController, animated: true)
-                    present(viewController, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "toMyFeed") || (segue.identifier == "toMyFeed2"), let destination = segue.destination as? MyFeedViewController {
-        if segue.identifier == "toMyFeed", let destination = segue.destination as? MyFeedViewController {
-            destination.userInfo = self.userInfo
-        }
-        else if segue.identifier == "toCamera", let destination = segue.destination as? CameraViewController {
-            destination.userInfo = self.userInfo
+        let randomNumber: Int? = Int.random(in: 0 ... 10)
+        
+        guard let random = randomNumber else {
+            return
         }
         
+        if random % 2 == 0 {
+            if let viewController = UIStoryboard.init(name: "TouristSite", bundle: Bundle.main).instantiateViewController(withIdentifier: "TouristSiteViewController") as? TouristSiteViewController {
+                self.present(viewController, animated: true, completion: nil)
+            }
+            
+        } else {
+            if let viewController = UIStoryboard.init(name: "Affiliate", bundle: Bundle.main).instantiateViewController(withIdentifier: "AffiliateViewController") as? AffiliateViewController {
+                self.present(viewController, animated: true, completion: nil)
+            }
+        }
     }
+    
+    private func initializeView() {
+        self.smileLabel.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 2)
+    }
+    
+    deinit {
+        self.presenter.detachView()
+    }
+
+}
+
+extension MainFeedViewController: MainFeedView {
+    
 }
 
 extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("🤪🤪\(mainFeedInfo?.otherPeopleList[indexPath.row])")
-        if let info = mainFeedInfo?.otherPeopleList[indexPath.row], let viewController = UIStoryboard.init(name: "FeedDetail", bundle: Bundle.main).instantiateViewController(withIdentifier: "FeedDetailViewController") as? FeedDetailViewController {
-//            otherPeopleFeedId = info.journeyId
+        if let info = mainFeedInfo?.otherPeopleList[indexPath.row],
+            let viewController = UIStoryboard
+                .init(name: "FeedDetail", bundle: Bundle.main)
+                .instantiateViewController(withIdentifier: "FeedDetailViewController") as? FeedDetailViewController {
+
             viewController.feedId = info.journeyId
+            
             self.present(viewController, animated: true, completion: nil)
         }
     }
@@ -144,8 +156,8 @@ extension MainFeedViewController {
                 print("Request: \(String(describing: response.request))")   // original url request
                 print("Response: \(String(describing: response.response))") // http url response
                 print("Result: \(response.result)")                         // response serialization result
-                
-                
+
+
                 if let data = response.data {
                     let decoder = JSONDecoder()
                     do {
@@ -173,12 +185,12 @@ extension MainFeedViewController {
                         }
                     }
                 }
-                
+
             }
         }
-        
+
     }
-    
+
     func update(mainfeedInfo : MainFeed) {
         if mainfeedInfo.isFirst == "true" {
             placeHolderView.isHidden = false
@@ -194,7 +206,7 @@ extension MainFeedViewController {
         }
         cityLabel.text = mainfeedInfo.enumStr
         weekdayLabel.text = mainfeedInfo.weekday
-        
+
         peopleJourneyCollectionView.reloadData()
     }
 }

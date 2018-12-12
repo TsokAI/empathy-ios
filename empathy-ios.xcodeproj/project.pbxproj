@@ -36,6 +36,7 @@
 		3B5AECB021B996A3008CB9A9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */; };
 		3B5AECB221BA99B3008CB9A9 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */; };
 		3B5AECB521BD4AEF008CB9A9 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AECB421BD4AEF008CB9A9 /* LoginPresenter.swift */; };
+		3BDCBE1921C1753E0093456F /* MainFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCBE1821C1753E0093456F /* MainFeedPresenter.swift */; };
 		55090CB021B2DEE600147D20 /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55090C8E21B2DEE600147D20 /* TopLib_Op.a */; };
 		55090CB121B2DEE600147D20 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA421B2DEE600147D20 /* TrackingDotHalo.png */; };
 		55090CB221B2DEE600147D20 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55090CA521B2DEE600147D20 /* TrackingDot@2x.png */; };
@@ -140,6 +141,7 @@
 		3B5AECAF21B996A3008CB9A9 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
 		3B5AECB121BA99B3008CB9A9 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		3B5AECB421BD4AEF008CB9A9 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		3BDCBE1821C1753E0093456F /* MainFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedPresenter.swift; sourceTree = "<group>"; };
 		4A99C37BD44035FBF70FDAAA /* Pods_empathy_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empathy_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55090C5C21B2B15400147D20 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		55090C8E21B2DEE600147D20 /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				03A9EF5221AAADB200FD7F2D /* MainFeed.storyboard */,
 				03A9EF5421AAADBD00FD7F2D /* MainFeedViewController.swift */,
+				3BDCBE1821C1753E0093456F /* MainFeedPresenter.swift */,
 				0357513021B231250048323A /* MainFeedCollectionViewCell.swift */,
 			);
 			name = "Main Feed";
@@ -867,6 +870,7 @@
 				0357513921B2D14A0048323A /* MyFeed.swift in Sources */,
 				55A331772191A84D005DFA01 /* FilterCollectionView.swift in Sources */,
 				3B5AECAE21B99599008CB9A9 /* FeedDetailPresenter.swift in Sources */,
+				3BDCBE1921C1753E0093456F /* MainFeedPresenter.swift in Sources */,
 				03F2F10D219529EE00A98241 /* LoginViewController.swift in Sources */,
 				03F88CF521A477FD00084E8E /* InstagramLoginViewController.swift in Sources */,
 				55DFA36B219C47D3001B23AC /* Anchors.swift in Sources */,

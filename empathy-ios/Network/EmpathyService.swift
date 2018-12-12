@@ -19,6 +19,7 @@ class EmpathyService {
         let url = baseUrl + "/journey/myjourney/\(userId)"
         
         Alamofire.request(url).responseJSON { response in
+            
             if let myFeeds = response.result.value as? [MyFeed] {
                 completion(RequestResult.success(myFeeds))
             }
@@ -29,6 +30,7 @@ class EmpathyService {
         let url = baseUrl + "/journey/\(feedId)"
         
         Alamofire.request(url).responseJSON { response in
+            
             if let feed = response.result.value {
                 let feed = feed as? [String: Any]
                 
@@ -66,12 +68,44 @@ class EmpathyService {
                             } else {
                                 completion(RequestResult.failure(message: ""))
                             }
-                            
-//                            if let viewController = UIStoryboard.init(name: "MainFeed", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainFeedViewController") as? MainFeedViewController {
-//                                viewController.userInfo = self.userInformation
-//                                self.navigationController?.pushViewController(viewController, animated: true)
-//                                self.present(viewController, animated: true, completion: nil)
-//                            }
+        }
+    }
+    
+    func fetchMainFeed(location: String, userId: String, completion: @escaping (RequestResult<MainFeed>) -> Void) {
+        let url = baseUrl + "/journey/main/\(location)/\(userId)"
+        
+        Alamofire.request(url).responseJSON { response in
+            
+            if let mainFeed = response.result.value as? MainFeed {
+                
+                print("mainFeed \(mainFeed.mainText)")
+//                let decoder = JSONDecoder()
+//
+//                do {
+//                    let mainFeed = try decoder.decode(MainFeed.self, from: data)
+////                    self.mainFeedInfo  = mainFeedInfo
+////                        print("⭐️mainFeedInfo:", mainFeedInfo)
+//                    //self.update(detailInfo: detailInfo)
+//                } catch let DecodingError.dataCorrupted(context) {
+//                    print(context)
+//                } catch let DecodingError.keyNotFound(key, context) {
+//                    print("Key '\(key)' not found:", context.debugDescription)
+//                    print("codingPath:", context.codingPath)
+//                } catch let DecodingError.valueNotFound(value, context) {
+//                    print("Value '\(value)' not found:", context.debugDescription)
+//                    print("codingPath:", context.codingPath)
+//                } catch let DecodingError.typeMismatch(type, context)  {
+//                    print("Type '\(type)' mismatch:", context.debugDescription)
+//                    print("codingPath:", context.codingPath)
+//                } catch {
+//                    print("error: ", error)
+//                }
+//                DispatchQueue.main.async {
+//                    if let info =  {
+//                        self.update(mainfeedInfo: info)
+//                    }
+//                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Toaster
 
 class MainFeedViewController: UIViewController {
 
@@ -21,8 +22,8 @@ class MainFeedViewController: UIViewController {
     @IBOutlet weak var myJourneyLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
-    private var mainFeedInfo: MainFeed?
-    private var locationEnum:LocationEnum?
+    private var mainFeed: MainFeed?
+    private var locationEnum: LocationEnum?
     
     private let presenter = MainFeedPresenter(service: EmpathyService.empathyInstance)
     
@@ -46,8 +47,7 @@ class MainFeedViewController: UIViewController {
             }
             
             if let id = self.userInfo?.userId {
-//                self.presenter.fetchMainFeed(location: "Seourl", userId: String(id))
-                self.requestMainFeedInfo("Seoul", String(id))
+                self.presenter.fetchMainFeed(location: "Seourl", userId: String(id))
             }
         }
     }
@@ -104,12 +104,37 @@ class MainFeedViewController: UIViewController {
 }
 
 extension MainFeedViewController: MainFeedView {
+    func showMyFeedPlaceholder() {
+        self.placeHolderView.isHidden = false
+        self.myJourneyView.isHidden = true
+    }
     
+    func showMainFeed(mainFeed: MainFeed) {
+        self.cityLabel.text = mainFeed.enumStr
+        self.weekdayLabel.text = mainFeed.weekday
+        
+        self.mainFeed = mainFeed
+        self.peopleJourneyCollectionView.reloadData()
+    }
+    
+    func showMyFeedInformation(mainFeed: MainFeed) {
+        self.placeHolderView.isHidden = true
+        self.myJourneyView.isHidden = false
+        self.myJourneyLabel.text = mainFeed.mainText
+        
+        if  let journeyURL = URL(string: mainFeed.imageURL) {
+            self.myJourneyImageView.kf.setImage(with: journeyURL)
+        }
+    }
+    
+    func showFailure(message: String) {
+        Toast.init(text: message).show()
+    }
 }
 
-extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataSource {
+extension MainFeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let info = mainFeedInfo?.otherPeopleList[indexPath.row],
+        if let info = mainFeed?.otherPeopleList[indexPath.row],
             let viewController = UIStoryboard
                 .init(name: "FeedDetail", bundle: Bundle.main)
                 .instantiateViewController(withIdentifier: "FeedDetailViewController") as? FeedDetailViewController {
@@ -121,7 +146,7 @@ extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let numberOfItem = mainFeedInfo?.otherPeopleList.count {
+        if let numberOfItem = mainFeed?.otherPeopleList.count {
             if numberOfItem < 18 {
                 return numberOfItem
             }
@@ -138,7 +163,7 @@ extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataS
         guard let cell = peopleJourneyCollectionView.dequeueReusableCell(withReuseIdentifier: "peopleJourney", for: indexPath) as? MainFeedCollectionViewCell else {
             return UICollectionViewCell()
         }
-        if let info = mainFeedInfo?.otherPeopleList[indexPath.row] {
+        if let info = mainFeed?.otherPeopleList[indexPath.row] {
             if let ownerImageURLString = info.ownerProfileUrl as? String, let journeyImageURLString = info.imageUrl as? String {
                 cell.config(info.ownerName ?? "-", ownerImageURLString , journeyImageURL: journeyImageURLString ?? "-")
             }
@@ -148,65 +173,6 @@ extension MainFeedViewController: UICollectionViewDelegate,UICollectionViewDataS
     
 }
 
-extension MainFeedViewController {
-    func requestMainFeedInfo(_ city:String, _ userId:String){
-        if let user = userInfo {
-            let urlPath = Commons.baseUrl + "/journey/main/\(city)/\(userId)"
-            Alamofire.request(urlPath).responseJSON { response in
-                print("Request: \(String(describing: response.request))")   // original url request
-                print("Response: \(String(describing: response.response))") // http url response
-                print("Result: \(response.result)")                         // response serialization result
-
-
-                if let data = response.data {
-                    let decoder = JSONDecoder()
-                    do {
-                        let mainFeedInfo = try decoder.decode(MainFeed.self, from: data)
-                        self.mainFeedInfo  = mainFeedInfo
-//                        print("⭐️mainFeedInfo:", mainFeedInfo)
-                        //self.update(detailInfo: detailInfo)
-                    } catch let DecodingError.dataCorrupted(context) {
-                        print(context)
-                    } catch let DecodingError.keyNotFound(key, context) {
-                        print("Key '\(key)' not found:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                    } catch let DecodingError.valueNotFound(value, context) {
-                        print("Value '\(value)' not found:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                    } catch let DecodingError.typeMismatch(type, context)  {
-                        print("Type '\(type)' mismatch:", context.debugDescription)
-                        print("codingPath:", context.codingPath)
-                    } catch {
-                        print("error: ", error)
-                    }
-                    DispatchQueue.main.async {
-                        if let info = self.mainFeedInfo {
-                            self.update(mainfeedInfo: info)
-                        }
-                    }
-                }
-
-            }
-        }
-
-    }
-
-    func update(mainfeedInfo : MainFeed) {
-        if mainfeedInfo.isFirst == "true" {
-            placeHolderView.isHidden = false
-            myJourneyView.isHidden = true
-        }
-        else {
-            placeHolderView.isHidden = true
-            myJourneyView.isHidden = false
-            myJourneyLabel.text = mainfeedInfo.mainText
-            if  let journeyURL = URL(string: mainfeedInfo.imageURL) {
-                myJourneyImageView.kf.setImage(with: journeyURL)
-            }
-        }
-        cityLabel.text = mainfeedInfo.enumStr
-        weekdayLabel.text = mainfeedInfo.weekday
-
-        peopleJourneyCollectionView.reloadData()
-    }
+extension MainFeedViewController: UICollectionViewDelegate {
+    
 }

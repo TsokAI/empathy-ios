@@ -10,7 +10,10 @@ import Foundation
 
 
 protocol MainFeedView {
-    
+    func showFailure(message: String)
+    func showMyFeedPlaceholder()
+    func showMyFeedInformation(mainFeed: MainFeed)
+    func showMainFeed(mainFeed: MainFeed)
 }
 
 class MainFeedPresenter: BasePresenter {
@@ -32,12 +35,20 @@ class MainFeedPresenter: BasePresenter {
     }
     
     func fetchMainFeed(location: String, userId: String) {
-        self.service.fetchMainFeed(location: location, userId: userId) { [weak self] response in
+        self.service.fetchMainFeed(locationEnum: location, userId: userId) { [weak self] response in
             
-//            switch response {
-//            case .success(let result):
-//
-//            }
+            switch response {
+            case .success(let result):
+                if result.isFirst == "true" {
+                    self?.view?.showMyFeedPlaceholder()
+                } else {
+                    self?.view?.showMyFeedInformation(mainFeed: result)
+                }
+                
+                self?.view?.showMainFeed(mainFeed: result)
+            case .failure(let message):
+                self?.view?.showFailure(message: message)
+            }
         }
     }
 }

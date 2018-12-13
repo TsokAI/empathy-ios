@@ -9,10 +9,19 @@
 import Foundation
 
 struct MainFeed: Codable {
-    let enumStr:String
-    let imageURL:String
-    let isFirst:String
-    let mainText:String
-    let otherPeopleList:[OtherPeopleJourney]
-    let weekday:String
+    let enumStr: String
+    let imageURL: String
+    let isFirst: String
+    let mainText: String
+    let otherPeopleList: [OtherPeopleJourney]
+    let weekday: String
+    
+    enum CodingKeys: String, CodingKey {
+        case enumStr = "enumStr"
+        case imageURL = "imageURL"
+        case isFirst = "isFirst"
+        case mainText = "mainText"
+        case otherPeopleList = "otherPeopleList"
+        case weekday = "weekday"
+    }
 }

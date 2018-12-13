@@ -59,7 +59,7 @@ class EmpathyService {
                           parameters: ["name": name, "loginApi": "facebook" , "profileUrl": pictureURL, "appUserId":  appUserId],
                           encoding: JSONEncoding.default, headers: nil).responseJSON { response in
                             
-                            if let json = (response.result.value as? Int){
+                            if let json = response.result.value as? Int {
                                 let user = UserInfo.init(userId: json, name: name, pictureURL: pictureURL)
                                 
                                 UserInfoManager.shared.userInfo = user
@@ -71,41 +71,31 @@ class EmpathyService {
         }
     }
     
-    func fetchMainFeed(location: String, userId: String, completion: @escaping (RequestResult<MainFeed>) -> Void) {
-        let url = baseUrl + "/journey/main/\(location)/\(userId)"
+    func fetchMainFeed(locationEnum: String, userId: String, completion: @escaping (RequestResult<MainFeed>) -> Void) {
+        let url = baseUrl + "/journey/main/\(locationEnum)/\(userId)"
         
         Alamofire.request(url).responseJSON { response in
             
-            if let mainFeed = response.result.value as? MainFeed {
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
+            
+            if let data = response.data {
                 
-                print("mainFeed \(mainFeed.mainText)")
-//                let decoder = JSONDecoder()
-//
-//                do {
-//                    let mainFeed = try decoder.decode(MainFeed.self, from: data)
-////                    self.mainFeedInfo  = mainFeedInfo
-////                        print("⭐️mainFeedInfo:", mainFeedInfo)
-//                    //self.update(detailInfo: detailInfo)
-//                } catch let DecodingError.dataCorrupted(context) {
-//                    print(context)
-//                } catch let DecodingError.keyNotFound(key, context) {
-//                    print("Key '\(key)' not found:", context.debugDescription)
-//                    print("codingPath:", context.codingPath)
-//                } catch let DecodingError.valueNotFound(value, context) {
-//                    print("Value '\(value)' not found:", context.debugDescription)
-//                    print("codingPath:", context.codingPath)
-//                } catch let DecodingError.typeMismatch(type, context)  {
-//                    print("Type '\(type)' mismatch:", context.debugDescription)
-//                    print("codingPath:", context.codingPath)
-//                } catch {
-//                    print("error: ", error)
-//                }
-//                DispatchQueue.main.async {
-//                    if let info =  {
-//                        self.update(mainfeedInfo: info)
-//                    }
-//                }
+                let decoder = JSONDecoder()
+                
+                do {
+                    let mainFeed = try decoder.decode(MainFeed.self, from: data)
+                    
+                    completion(RequestResult.success(mainFeed))
+                } catch {
+                    print("error")
+                    completion(RequestResult.failure(message: "데이터를 불러 올 수 없습니다."))
+                }
+            } else {
+                completion(RequestResult.failure(message: "데이터를 불러 올 수 없습니다."))
             }
         }
     }
+        
 }
